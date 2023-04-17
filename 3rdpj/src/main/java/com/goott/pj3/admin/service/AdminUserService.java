@@ -7,14 +7,14 @@ import com.goott.pj3.admin.dto.AdminUserDTO;
 
 public interface AdminUserService {
 
-	List<AdminUserDTO> adminUserList();
+    List<AdminUserDTO> adminUserList();
 
-	AdminUserDTO adminUserDetail(String user_id);
+    AdminUserDTO adminUserDetail(String user_id);
 
-	void adminuserupdate(AdminUserDTO dto);
+    void adminuserupdate(AdminUserDTO dto);
 
-	void adminuserdelete(AdminUserDTO dto);
+    void adminuserdelete(AdminUserDTO dto);
 
-	void adminuserdeletere(AdminUserDTO dto);
+    void adminuserdeletere(AdminUserDTO dto);
 
 }

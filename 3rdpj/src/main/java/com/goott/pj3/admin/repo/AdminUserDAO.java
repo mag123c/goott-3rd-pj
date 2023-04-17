@@ -12,34 +12,34 @@ import com.goott.pj3.admin.dto.AdminUserDTO;
 
 @Repository
 public class AdminUserDAO {
-	
-	@Autowired
-	SqlSession sqlSession;
 
-	public List<AdminUserDTO> adminUserList() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("adminuserlist");
-	}
+    @Autowired
+    SqlSession sqlSession;
 
-	public AdminUserDTO adminUserDetail(String user_id) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("adminuserdetail",user_id);
-	}
+    public List<AdminUserDTO> adminUserList() {
+        // TODO Auto-generated method stub
+        return sqlSession.selectList("adminuserlist");
+    }
 
-	public void adminuserupdate(AdminUserDTO dto) {
-		// TODO Auto-generated method stub
-		sqlSession.update("adminuserupdate", dto);
-	}
+    public AdminUserDTO adminUserDetail(String user_id) {
+        // TODO Auto-generated method stub
+        return sqlSession.selectOne("adminuserdetail", user_id);
+    }
 
-	public void adminuserdelete(AdminUserDTO dto) {
-		// TODO Auto-generated method stub
-		sqlSession.delete("adminuserdelete",dto);
-	}
+    public void adminuserupdate(AdminUserDTO dto) {
+        // TODO Auto-generated method stub
+        sqlSession.update("adminuserupdate", dto);
+    }
 
-	public void adminuserdeletere(AdminUserDTO dto) {
-		// TODO Auto-generated method stub
-		sqlSession.update("adminuserdeletere", dto);
-	}
+    public void adminuserdelete(AdminUserDTO dto) {
+        // TODO Auto-generated method stub
+        sqlSession.delete("adminuserdelete", dto);
+    }
+
+    public void adminuserdeletere(AdminUserDTO dto) {
+        // TODO Auto-generated method stub
+        sqlSession.update("adminuserdeletere", dto);
+    }
 
 
 }

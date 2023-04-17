@@ -36,43 +36,45 @@ public class AdminController {
 
 
     // 로그인
-    @RequestMapping(value = "login_check", method = RequestMethod.POST )
+    @RequestMapping(value = "login_check", method = RequestMethod.POST)
     public ModelAndView login_check(AdminUserDTO dto,
-            HttpSession session, ModelAndView mv) {
-    	AdminUserDTO login_chk = adminService.login_check(dto);
-    	if(login_chk != null) {
-    		session.setAttribute("user_id", login_chk.getUser_id());
-    		session.setAttribute("auth", login_chk.getAuth());
-    		session.setMaxInactiveInterval(60*30);
+                                    HttpSession session, ModelAndView mv) {
+        AdminUserDTO login_chk = adminService.login_check(dto);
+        if (login_chk != null) {
+            session.setAttribute("user_id", login_chk.getUser_id());
+            session.setAttribute("auth", login_chk.getAuth());
+            session.setMaxInactiveInterval(60 * 120);
 //    		mv.addObject("data", login_chk);
-    		mv.setViewName("admin/main");
-    		
-    	}else if(login_chk == null){
-    		mv.setViewName("admin/login");
-    		mv.addObject("data", "error");
-    	}
-    	return mv;
+            mv.setViewName("admin/main");
+
+        } else if (login_chk == null) {
+            mv.setViewName("admin/login");
+            mv.addObject("data", "error");
+        }
+        return mv;
     }
 
 
     // logout
     @RequestMapping("logout")
     public String logout(HttpSession session) {
-    	session.invalidate();
-    	return "redirect:/admin/login";
+        session.invalidate();
+        return "redirect:/admin/login";
     }
-    
 
 
-     @RequestMapping("main")
-     public String main(HttpSession session) {
-     	if(session.getAttribute("auth") != "auth_a") {
-     		return "redirect:/admin/login";
-     	}else {
-     		return "/admin/main";
-     	}
-     	
-     }
+    //로그인 후 main 가기
+    @RequestMapping("main")
+    public String main(HttpSession session) {
+        System.out.println(session.getAttribute("auth"));
+        if (session.getAttribute("auth").equals( "auth_a")) {
+            return "admin/main";
+        } else {
+            return "redirect:/admin/login";
+        }
+
+    }
+
 }
-	
+
 

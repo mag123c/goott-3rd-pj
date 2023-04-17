@@ -12,17 +12,14 @@ import com.goott.pj3.user.dto.UserDTO;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-	@Autowired
-	AdminDAO adminDAO;
+    @Autowired
+    AdminDAO adminDAO;
 
-	@Override
-	public AdminUserDTO login_check(AdminUserDTO dto) {
-		// TODO Auto-generated method stub
-		return adminDAO.login_check(dto);
-	}
-
-
+    @Override
+    public AdminUserDTO login_check(AdminUserDTO dto) {
+        // TODO Auto-generated method stub
+        return adminDAO.login_check(dto);
+    }
 
 
-	
 }

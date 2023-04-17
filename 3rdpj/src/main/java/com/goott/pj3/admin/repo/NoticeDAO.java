@@ -14,41 +14,41 @@ import com.goott.pj3.admin.dto.NoticeDTO;
 @Repository
 public class NoticeDAO {
 
-	@Inject
-	SqlSession sqlSession;
-	
-	public List<NoticeDTO> noticeList(String search_option, String keyword) {
-		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<>();
-		map.put("search_option", search_option);
-		map.put("keyword", keyword);
-		return sqlSession.selectList("noticelist", map);
-	}
+    @Inject
+    SqlSession sqlSession;
 
-	public void noticeinsert(NoticeDTO dto) {
-		// TODO Auto-generated method stub
-		sqlSession.insert("noticeinsert", dto);
-	}
+    public List<NoticeDTO> noticeList(String search_option, String keyword) {
+        // TODO Auto-generated method stub
+        Map<String, Object> map = new HashMap<>();
+        map.put("search_option", search_option);
+        map.put("keyword", keyword);
+        return sqlSession.selectList("noticelist", map);
+    }
 
-	public NoticeDTO noticedetail(int idx) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("noticedetail",idx);
-	}
+    public void noticeinsert(NoticeDTO dto) {
+        // TODO Auto-generated method stub
+        sqlSession.insert("noticeinsert", dto);
+    }
 
-	public void noticeupdate(NoticeDTO dto) {
-		// TODO Auto-generated method stub
-		sqlSession.update("noticeupdate", dto);
-	}
+    public NoticeDTO noticedetail(int idx) {
+        // TODO Auto-generated method stub
+        return sqlSession.selectOne("noticedetail", idx);
+    }
 
-	public void noticedelete(NoticeDTO dto) {
-		// TODO Auto-generated method stub
-		sqlSession.delete("noticedelete", dto);
-	}
+    public void noticeupdate(NoticeDTO dto) {
+        // TODO Auto-generated method stub
+        sqlSession.update("noticeupdate", dto);
+    }
 
-	public void noticedeletere(NoticeDTO dto) {
-		// TODO Auto-generated method stub
-		sqlSession.update("noticedeletere", dto);
-	}
-	
-	
+    public void noticedelete(NoticeDTO dto) {
+        // TODO Auto-generated method stub
+        sqlSession.delete("noticedelete", dto);
+    }
+
+    public void noticedeletere(NoticeDTO dto) {
+        // TODO Auto-generated method stub
+        sqlSession.update("noticedeletere", dto);
+    }
+
+
 }
