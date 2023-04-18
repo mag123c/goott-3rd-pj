@@ -10,48 +10,63 @@
          and auth = 'auth_a'
 </select>
 
-<select id="noticelist" resultType="com.goott.pj3.admin.dto.NoticeDTO">
+<select id="noticeList" resultType="com.goott.pj3.admin.dto.NoticeDTO">
 	select qna_idx, user_id, category, auth, qna_title, qna_content, q_del_yn, create_date, update_date
 	  from qna
-	  where category="N"
+	  where category='N'
+	  order by qna_idx desc
+	  limit #{pageStart}, #{perPageNum}
 </select>
 
-<insert id="noticeinsert">
+<select id="noticeT_Count" resultType="int">
+	select count(qna_idx)
+	from qna
+	where category='N'
+</select>
+
+<insert id="noticeInsert">
 	insert into qna(user_id, category, auth, qna_title,qna_content , create_date)
 	VALUES (#{user_id}, #{category}, #{auth}, #{qna_title}, #{qna_content}, current_timestamp)
 </insert>
 
-<select id="noticedetail" parameterType="int" resultType="com.goott.pj3.admin.dto.NoticeDTO">
+<select id="noticeDetail" parameterType="int" resultType="com.goott.pj3.admin.dto.NoticeDTO">
 	select qna_idx, user_id, category, auth, qna_title, qna_content, q_del_yn, update_date
 	  from qna
 	 where qna_idx=#{qna_idx}
 </select>
 
-<update id="noticeupdate">
+<update id="noticeUpdate">
 	update qna
 	   set qna_title=#{qna_title}, qna_content=#{qna_content}, update_date=NOW()
 	 where qna_idx=#{qna_idx}
 </update>
 
-<delete id="noticedelete">
+<delete id="noticeDelete">
 	update qna 
 	   set q_del_yn='Y', update_date=NOW()
 	 where qna_idx=#{qna_idx}
 </delete>
 
-<delete id="noticedeletere">
+<delete id="noticeDeleteReturn">
 	update qna 
 	   set q_del_yn='N', update_date=NOW()
 	 where qna_idx=#{qna_idx}
 </delete>
 
-<select id="adminuserlist" resultType="com.goott.pj3.admin.dto.AdminUserDTO">
+<select id="adminUserList" resultType="com.goott.pj3.admin.dto.AdminUserDTO">
 	select user_id, pw, email, hp, auth, u_del_yn, u_point, create_date, update_date
 	  from user
 	 where auth != 'auth_a'
+	 order by user_id desc
+	 limit #{pageStart}, #{perPageNum}
 </select>
 
-<select id="adminuserdetail" resultType="com.goott.pj3.admin.dto.AdminUserDTO">
+<select id="userT_Count" resultType="int">
+	select count(user_id)
+	from user
+</select>
+
+<select id="adminUserDetail" resultType="com.goott.pj3.admin.dto.AdminUserDTO">
 	select 
         user_id, pw, birth, email, hp, hp_emp, intro, 
         profile_img, auth, u_del_yn, u_point, emp_num, 
@@ -63,7 +78,7 @@
         user_id = #{user_id}
 </select>
 
-<update id="adminuserupdate">
+<update id="adminUserUpdate">
 	update user
 	   set pw=#{pw}, birth=#{birth}, email=#{email}, hp=#{hp}, hp_emp=#{hp_emp}, intro=#{intro}, 
         profile_img=#{profile_img}, auth=#{auth}, u_del_yn=#{u_del_yn}, u_point=#{u_point}, emp_num=#{emp_num}, 
@@ -72,16 +87,49 @@
 	 where user_id=#{user_id}
 </update>
 
-<delete id="adminuserdelete">
+<delete id="adminUserDelete">
 	update user 
 	   set u_del_yn='y'
 	 where user_id=#{user_id}
 </delete>
 
-<update id="adminuserdeletere">
+<update id="adminUserDeleteReturn">
 	update user
 	   set u_del_yn='n'
 	 where user_id=#{user_id}
 </update>
+
+<!--신진영 23.04.18 리뷰 목록, 검색-->
+<select id="reviewList" parameterType="hashMap" resultType="hashMap">
+	select review_idx, user_id, plan_idx, review_content, r_del_yn,
+	review_rating, create_date, update_date
+	from plan_review
+	where 1=1
+	<if test="keyword != null and keyword != ''">
+		and (review_content like CONCAT('%',#{keyword},'%'))
+	</if>
+	order by review_idx desc
+</select>
+
+<!--신진영 23.04.18 디테일 페이지-->
+<select id="reviewDetail" parameterType="hashMap" resultType="hashMap">
+	select review_idx, user_id, plan_idx, review_content, review_rating, create_date
+	from plan_review
+	where review_idx = #{review_idx}
+</select>
+<!--신진영 23.04.18 리뷰 수정-->
+<update id="reviewUpdate" parameterType="hashMap">
+	update plan_review
+	set review_content=#{review_content}, review_img=#{review_img},
+		update_date=NOW()
+	where review_idx = #{review_idx}
+</update>
+<!--신진영 23.04.18 리뷰 삭제-->
+<delete id="reviewDelete" parameterType="hashMap">
+	update plan_review
+	   set r_del_yn='n'
+	 where review_idx = #{review_idx}
+</delete>
+
 
 </mapper>

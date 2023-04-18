@@ -12,9 +12,9 @@
 <body>
 <%-- 	<c:if test="${sessionScope.auth =='auth_a'}">--%>
 	<div>
-		<a href="admin/noticelist">공지사항</a>
-		<a href="admin/userlist">회원관리</a>
-		<a href="admin/logout">로그아웃</a>
+		<a href="noticelist">공지사항</a>
+		<a href="userlist">회원관리</a>
+		<a href="logout">로그아웃</a>
 		<a href="/qna/main">질문게시판</a>
 		<a href="/review/list">리뷰관리</a>
 	</div>

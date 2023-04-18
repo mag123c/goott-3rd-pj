@@ -28,14 +28,25 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    // 어드민 로그인 페이지로 이동
+
+    /**
+     * 신진영 23.04.10 로그인
+     * @return
+     */
     @RequestMapping("login")
     public String login() {
         return "admin/login";
     }
 
 
-    // 로그인
+
+    /**
+     * 신진영 23.04.10 로그인체크
+     * @param dto
+     * @param session
+     * @param mv
+     * @return
+     */
     @RequestMapping(value = "login_check", method = RequestMethod.POST)
     public ModelAndView login_check(AdminUserDTO dto,
                                     HttpSession session, ModelAndView mv) {
@@ -44,7 +55,6 @@ public class AdminController {
             session.setAttribute("user_id", login_chk.getUser_id());
             session.setAttribute("auth", login_chk.getAuth());
             session.setMaxInactiveInterval(60 * 120);
-//    		mv.addObject("data", login_chk);
             mv.setViewName("admin/main");
 
         } else if (login_chk == null) {
@@ -54,8 +64,11 @@ public class AdminController {
         return mv;
     }
 
-
-    // logout
+    /**
+     * 신진영 23.04.10 로그아웃
+     * @param session
+     * @return
+     */
     @RequestMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
@@ -63,7 +76,11 @@ public class AdminController {
     }
 
 
-    //로그인 후 main 가기
+    /**
+     * 신진영 23.04.10 어드민 메인
+     * @param session
+     * @return
+     */
     @RequestMapping("main")
     public String main(HttpSession session) {
         System.out.println(session.getAttribute("auth"));

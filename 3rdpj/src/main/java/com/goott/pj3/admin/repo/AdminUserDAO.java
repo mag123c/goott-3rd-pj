@@ -3,6 +3,7 @@ package com.goott.pj3.admin.repo;
 import java.util.List;
 
 
+import com.goott.pj3.common.util.Criteria;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,29 +17,60 @@ public class AdminUserDAO {
     @Autowired
     SqlSession sqlSession;
 
-    public List<AdminUserDTO> adminUserList() {
+    /**
+     * 신진영 23.04.05 회원목록 리스트
+     * @param cri
+     * @return
+     */
+    public List<AdminUserDTO> adminUserList(Criteria cri) {
         // TODO Auto-generated method stub
-        return sqlSession.selectList("adminuserlist");
+        return sqlSession.selectList("adminUserList", cri);
     }
 
+    /**
+     * 신진영 23.04.05 회원목록 페이징
+     * @param cri
+     * @return
+     */
+    public int totalCount(Criteria cri) {
+        return  sqlSession.selectOne("userT_Count",cri);
+    }
+
+    /**
+     * 신진영 23.04.05 회원상세정보
+     * @param user_id
+     * @return
+     */
     public AdminUserDTO adminUserDetail(String user_id) {
         // TODO Auto-generated method stub
-        return sqlSession.selectOne("adminuserdetail", user_id);
+        return sqlSession.selectOne("adminUserDetail", user_id);
     }
 
-    public void adminuserupdate(AdminUserDTO dto) {
+    /**
+     * 신진영 23.04.05 회원정보 수정
+     * @param dto
+     */
+    public void adminUserUpdate(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        sqlSession.update("adminuserupdate", dto);
+        sqlSession.update("adminUserUpdate", dto);
     }
 
-    public void adminuserdelete(AdminUserDTO dto) {
+    /**
+     * 신진영 23.04.05 회원 탈퇴
+     * @param dto
+     */
+    public void adminUserDelete(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        sqlSession.delete("adminuserdelete", dto);
+        sqlSession.delete("adminUserDelete", dto);
     }
 
-    public void adminuserdeletere(AdminUserDTO dto) {
+    /**
+     * 신진영 23.04.05 회원 탈퇴 복원
+     * @param dto
+     */
+    public void adminUserDeleteReturn(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        sqlSession.update("adminuserdeletere", dto);
+        sqlSession.update("adminUserDeleteReturn", dto);
     }
 
 

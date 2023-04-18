@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.goott.pj3.common.util.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,65 +24,96 @@ public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
-    // 공지사항 등록 리스트
-    @RequestMapping("noticelist")
-    public ModelAndView noticeList(@RequestParam(defaultValue = "all") String search_option,
-                                   @RequestParam(defaultValue = "") String keyword, ModelAndView mv, HttpSession session) {
+    /**
+     * 신진영 23.04.04 공지사항 리스트
+     * @param mv
+     * @param cri
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "noticelist", produces="application/text; charset=UTF-8;")
+    public ModelAndView noticeList(ModelAndView mv, Criteria cri, HttpSession session) {
 //		if(session.getAttribute("user_id") == null) { 
 //			return new ModelAndView("redirect:/user/signin"); 
 //		}
-        List<NoticeDTO> noticelist = noticeService.noticeList(search_option, keyword);
-        Map<String, Object> map = new HashMap<>();
-        mv.setViewName("admin/noticelist");
-        map.put("search_option", search_option);
-        map.put("keyword", keyword);
-        mv.addObject("noticelist", noticelist);
+        mv.addObject("paging", noticeService.paging(cri));
+        mv.addObject("noticelist", noticeService.noticeList(cri));
+        mv.setViewName("admin/notice/noticelist");
         return mv;
     }
 
-    //	공지사항 작성
+    /**
+     * 신진영 23.04.04 공지사항 작성
+     * @return
+     */
     @RequestMapping("noticewrite")
     public String noticeWrite() {
-        return "admin/noticewrite";
+        return "admin/notice/noticewrite";
     }
 
-    // 공지사항 상세 작성
+
+    /**
+     * 신진영 23.04.04 공지사항 입력
+     * @param dto
+     * @param session
+     * @return
+     */
     @RequestMapping("noticeinsert")
-    public String insert(NoticeDTO dto, HttpSession session) {
+    public String noticeInsert(NoticeDTO dto, HttpSession session) {
         String user_id = (String) session.getAttribute("user_id");
         dto.setUser_id(user_id);
-        noticeService.noticeinsert(dto);
-        return "redirect:/admin/noticelist";
+        noticeService.noticeInsert(dto);
+        return "redirect:/admin/notice/noticelist";
     }
 
-    // 공지사항 상세정보
+
+    /**
+     * 신진영 23.04.04 공지사항 상세페이지
+     * @param idx
+     * @return
+     */
     @RequestMapping("noticedetail")
-    public ModelAndView noticedetail(int idx) {
+    public ModelAndView noticeDetail(int idx) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("admin/noticedetail");
-        mv.addObject("dto", noticeService.noticedetail(idx));
+        mv.setViewName("admin/notice/noticedetail");
+        mv.addObject("dto", noticeService.noticeDetail(idx));
         return mv;
     }
 
-    // 공지사항 수정
+
+    /**
+     * 신진영 23.04.04 공지사항 수정
+     * @param dto
+     * @return
+     */
     @RequestMapping("noticeupdate")
-    public String noticeupdate(NoticeDTO dto) {
-        noticeService.noticeupdate(dto);
-        return "redirect:/admin/noticelist";
+    public String noticeUpdate(NoticeDTO dto) {
+        noticeService.noticeUpdate(dto);
+        return "redirect:/admin/notice/noticelist";
     }
 
-    // 공지사항 삭제
+
+    /**
+     * 신진영 23.04.04 공지사항 삭제
+     * @param dto
+     * @return
+     */
     @RequestMapping("noticedelete")
-    public String noticedelete(NoticeDTO dto) {
-        noticeService.noticedelete(dto);
-        return "redirect:/admin/noticelist";
+    public String noticeDelete(NoticeDTO dto) {
+        noticeService.noticeDelete(dto);
+        return "redirect:/admin/notice/noticelist";
     }
 
-    // 공지사항 복원
+
+    /**
+     * 신진영 23.04.04 공지사항 복원
+     * @param dto
+     * @return
+     */
     @RequestMapping("noticedeletere")
-    public String noticedeletere(NoticeDTO dto) {
-        noticeService.noticedeletere(dto);
-        return "redirect:/admin/noticelist";
+    public String noticeDeleteReturn(NoticeDTO dto) {
+        noticeService.noticeDeleteReturn(dto);
+        return "redirect:/admin/notice/noticelist";
     }
 
 }

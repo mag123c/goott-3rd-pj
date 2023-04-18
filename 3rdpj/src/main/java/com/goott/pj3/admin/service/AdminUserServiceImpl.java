@@ -2,6 +2,8 @@ package com.goott.pj3.admin.service;
 
 import java.util.List;
 
+import com.goott.pj3.common.util.Criteria;
+import com.goott.pj3.common.util.PagingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,19 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Autowired
     private AdminUserDAO adminUserDAO;
 
+
+
     @Override
-    public List<AdminUserDTO> adminUserList() {
-        // TODO Auto-generated method stub
-        return adminUserDAO.adminUserList();
+    public List<AdminUserDTO> adminUserList(Criteria cri) {
+        return adminUserDAO.adminUserList(cri);
+    }
+
+    @Override
+    public PagingDTO paging(Criteria cri) {
+        PagingDTO paging = new PagingDTO();
+        paging.setCri(cri);
+        paging.setTotalCount(adminUserDAO.totalCount(cri));
+        return paging;
     }
 
     @Override
@@ -28,22 +39,22 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public void adminuserupdate(AdminUserDTO dto) {
+    public void adminUserUpdate(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        adminUserDAO.adminuserupdate(dto);
+        adminUserDAO.adminUserUpdate(dto);
 
     }
 
     @Override
-    public void adminuserdelete(AdminUserDTO dto) {
+    public void adminUserDelete(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        adminUserDAO.adminuserdelete(dto);
+        adminUserDAO.adminUserDelete(dto);
     }
 
     @Override
-    public void adminuserdeletere(AdminUserDTO dto) {
+    public void adminUserDeleteReturn(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        adminUserDAO.adminuserdeletere(dto);
+        adminUserDAO.adminUserDeleteReturn(dto);
     }
 
 

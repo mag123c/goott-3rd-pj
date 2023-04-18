@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import com.goott.pj3.common.util.Criteria;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -17,38 +18,47 @@ public class NoticeDAO {
     @Inject
     SqlSession sqlSession;
 
-    public List<NoticeDTO> noticeList(String search_option, String keyword) {
-        // TODO Auto-generated method stub
-        Map<String, Object> map = new HashMap<>();
-        map.put("search_option", search_option);
-        map.put("keyword", keyword);
-        return sqlSession.selectList("noticelist", map);
+    public List<NoticeDTO> noticeList(Criteria cri) {
+        return sqlSession.selectList("noticeList",cri);
     }
 
-    public void noticeinsert(NoticeDTO dto) {
-        // TODO Auto-generated method stub
-        sqlSession.insert("noticeinsert", dto);
+    public int totalCount(Criteria cri) {
+        return  sqlSession.selectOne("noticeT_Count",cri);
     }
 
-    public NoticeDTO noticedetail(int idx) {
+//    public List<NoticeDTO> noticeList(String search_option, String keyword) {
+//        // TODO Auto-generated method stub
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("search_option", search_option);
+//        map.put("keyword", keyword);
+//        return sqlSession.selectList("noticelist", map);
+//    }
+
+    public void noticeInsert(NoticeDTO dto) {
         // TODO Auto-generated method stub
-        return sqlSession.selectOne("noticedetail", idx);
+        sqlSession.insert("noticeInsert", dto);
     }
 
-    public void noticeupdate(NoticeDTO dto) {
+    public NoticeDTO noticeDetail(int idx) {
         // TODO Auto-generated method stub
-        sqlSession.update("noticeupdate", dto);
+        return sqlSession.selectOne("noticeDetail", idx);
     }
 
-    public void noticedelete(NoticeDTO dto) {
+    public void noticeUpdate(NoticeDTO dto) {
         // TODO Auto-generated method stub
-        sqlSession.delete("noticedelete", dto);
+        sqlSession.update("noticeUpdate", dto);
     }
 
-    public void noticedeletere(NoticeDTO dto) {
+    public void noticeDelete(NoticeDTO dto) {
         // TODO Auto-generated method stub
-        sqlSession.update("noticedeletere", dto);
+        sqlSession.delete("noticeDelete", dto);
     }
+
+    public void noticeDeleteReturn(NoticeDTO dto) {
+        // TODO Auto-generated method stub
+        sqlSession.update("noticeDeleteReturn", dto);
+    }
+
 
 
 }
