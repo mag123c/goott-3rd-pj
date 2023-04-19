@@ -24,10 +24,13 @@ $(function(){
 
 	$(".btn__notice-create").click(function(){
 		location.href ="admin/noticewrite";
+
+	});
+
     
 	    });
     });
-});
+
 </script>
 <body>
 <%@ include file="/WEB-INF/views/common/layout.jsp" %>
