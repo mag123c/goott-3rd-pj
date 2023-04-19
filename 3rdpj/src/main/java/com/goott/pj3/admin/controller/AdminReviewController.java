@@ -22,6 +22,11 @@ public class AdminReviewController {
     @Autowired
     AdminReviewService reviewService;
 
+    /**
+     * 신진영 23.04.18 리뷰 목록, 검색
+     * @param map
+     * @return
+     */
     @RequestMapping("reviewlist")
     public ModelAndView list(@RequestParam Map<String, Object> map){
         ModelAndView mv = new ModelAndView();
@@ -33,6 +38,12 @@ public class AdminReviewController {
         mv.setViewName("/admin/review/review_list");
         return mv;
     }
+
+    /**
+     * 신진영 23.04.18 리뷰 상세페이지
+     * @param map
+     * @return
+     */
     @RequestMapping("reviewdetail")
     public ModelAndView detail(@RequestParam Map<String, Object> map){
         ModelAndView mv = new ModelAndView();
@@ -44,6 +55,11 @@ public class AdminReviewController {
         return mv;
     }
 
+    /**
+     * 신진영 23.04.18 리뷰 수정 호출
+     * @param map
+     * @return
+     */
     @RequestMapping("reviewupdate")
     public ModelAndView update(@RequestParam Map<String, Object> map) {
         ModelAndView mv = new ModelAndView();
@@ -53,28 +69,38 @@ public class AdminReviewController {
         return mv;
     }
 
+    /**
+     * 신진영 23.04.18 리뷰 수정
+     * @param map
+     * @return
+     */
     @RequestMapping(value = "reviewupdate", method = RequestMethod.POST)
     public ModelAndView updatePost(@RequestParam Map<String, Object> map){
         ModelAndView mv = new ModelAndView();
         boolean update = this.reviewService.update(map);
         if(update){
             String review_idx = map.get("review_idx").toString();
-            mv.setViewName("redirect:/review/detail?review_idx="+review_idx);
+            mv.setViewName("redirect:/admin/review/reviewdetail?review_idx="+review_idx);
         } else {
             mv = this.update(map);
         }
         return mv;
     }
 
+    /**
+     * 신진영 23.04.18 리뷰 삭제
+     * @param map
+     * @return
+     */
     @RequestMapping("reviewdelete")
     public ModelAndView delete(@RequestParam Map<String, Object> map){
         ModelAndView mv = new ModelAndView();
         boolean delete = this.reviewService.delete(map);
         if (delete){
-            mv.setViewName("redirect:/review/review_list");
+            mv.setViewName("redirect:/admin/reviewlist");
         } else {
             String review_idx = map.get("review_idx").toString();
-            mv.setViewName("redirect:/review/detail?review_idx="+review_idx);
+            mv.setViewName("redirect:/admin/review/reviewdetail?review_idx="+review_idx);
         }
         return mv;
     }

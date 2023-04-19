@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 
+<!-- 신진영 23.04.10 로그인 체크 -->
 <select id="login_check" resultType="com.goott.pj3.admin.dto.AdminUserDTO">
       select user_id, auth, pw
         from user
@@ -10,6 +11,7 @@
          and auth = 'auth_a'
 </select>
 
+<!-- 신진영 23.04.04 공지사항 리스트-->
 <select id="noticeList" resultType="com.goott.pj3.admin.dto.NoticeDTO">
 	select qna_idx, user_id, category, auth, qna_title, qna_content, q_del_yn, create_date, update_date
 	  from qna
@@ -18,41 +20,47 @@
 	  limit #{pageStart}, #{perPageNum}
 </select>
 
+<!-- 신진영 23.04.04 공지사항 게시판 수 카운트-->
 <select id="noticeT_Count" resultType="int">
 	select count(qna_idx)
 	from qna
 	where category='N'
 </select>
 
+<!-- 신진영 23.04.04 공지사항 생성-->
 <insert id="noticeInsert">
 	insert into qna(user_id, category, auth, qna_title,qna_content , create_date)
 	VALUES (#{user_id}, #{category}, #{auth}, #{qna_title}, #{qna_content}, current_timestamp)
 </insert>
 
+<!-- 신진영 23.04.04 공지사항 상세-->
 <select id="noticeDetail" parameterType="int" resultType="com.goott.pj3.admin.dto.NoticeDTO">
 	select qna_idx, user_id, category, auth, qna_title, qna_content, q_del_yn, update_date
 	  from qna
 	 where qna_idx=#{qna_idx}
 </select>
 
+<!-- 신진영 23.04.04 공지사항 수정-->
 <update id="noticeUpdate">
 	update qna
 	   set qna_title=#{qna_title}, qna_content=#{qna_content}, update_date=NOW()
 	 where qna_idx=#{qna_idx}
 </update>
 
+<!-- 신진영 23.04.04 공지사항 삭제-->
 <delete id="noticeDelete">
 	update qna 
 	   set q_del_yn='Y', update_date=NOW()
 	 where qna_idx=#{qna_idx}
 </delete>
-
+<!-- 신진영 23.04.04 공지사항 복원-->
 <delete id="noticeDeleteReturn">
 	update qna 
 	   set q_del_yn='N', update_date=NOW()
 	 where qna_idx=#{qna_idx}
 </delete>
 
+<!-- 신진영 23.04.05 회원 목록-->
 <select id="adminUserList" resultType="com.goott.pj3.admin.dto.AdminUserDTO">
 	select user_id, pw, email, hp, auth, u_del_yn, u_point, create_date, update_date
 	  from user
@@ -61,11 +69,13 @@
 	 limit #{pageStart}, #{perPageNum}
 </select>
 
+<!-- 신진영 23.04.05 회원 목록 수-->
 <select id="userT_Count" resultType="int">
 	select count(user_id)
 	from user
 </select>
 
+<!-- 신진영 23.04.05 회원 상세-->
 <select id="adminUserDetail" resultType="com.goott.pj3.admin.dto.AdminUserDTO">
 	select 
         user_id, pw, birth, email, hp, hp_emp, intro, 
@@ -78,6 +88,7 @@
         user_id = #{user_id}
 </select>
 
+<!-- 신진영 23.04.05 회원 수정-->
 <update id="adminUserUpdate">
 	update user
 	   set pw=#{pw}, birth=#{birth}, email=#{email}, hp=#{hp}, hp_emp=#{hp_emp}, intro=#{intro}, 
@@ -87,12 +98,14 @@
 	 where user_id=#{user_id}
 </update>
 
+<!-- 신진영 23.04.05 회원 탈퇴-->
 <delete id="adminUserDelete">
 	update user 
 	   set u_del_yn='y'
 	 where user_id=#{user_id}
 </delete>
 
+<!-- 신진영 23.04.05 회원복원-->
 <update id="adminUserDeleteReturn">
 	update user
 	   set u_del_yn='n'
@@ -120,7 +133,8 @@
 <!--신진영 23.04.18 리뷰 수정-->
 <update id="reviewUpdate" parameterType="hashMap">
 	update plan_review
-	set review_content=#{review_content}, review_img=#{review_img},
+	set review_content=#{review_content},
+# 	    review_img=#{review_img},
 		update_date=NOW()
 	where review_idx = #{review_idx}
 </update>
