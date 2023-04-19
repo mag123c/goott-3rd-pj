@@ -30,7 +30,7 @@ public class AdminController {
 
 
     /**
-     * 신진영 23.04.10 로그인
+     * 신진영 23.04.10 로그인 화면 호출
      * @return
      */
     @RequestMapping("login")

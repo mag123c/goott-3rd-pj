@@ -15,6 +15,11 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     AdminDAO adminDAO;
 
+    /**
+     * 신진영 23.04.10 로그인체크
+     * @param dto
+     * @return
+     */
     @Override
     public AdminUserDTO login_check(AdminUserDTO dto) {
         // TODO Auto-generated method stub
