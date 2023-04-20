@@ -13,9 +13,7 @@
 <p>리뷰 사진 : <img src="${data.reiew_img} height="200px" width="200px" style="border: 1px solid red;"></p>
 <p>내용 : ${data.review_content}</p>
 <p>작성자 : ${data.user_id}</p>
-<p>작성일 :
-    <fmt:parseDate value="${data.create_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="create_date" />
-    <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${create_date}"/></p>
+<p>작성일 : ${data.create_date}"</p>
 <p>
     <a href="/admin/reviewupdate?review_idx=${review_idx}">수정</a>
 </p>
@@ -25,7 +23,7 @@
     <input type="submit" value="삭제">
 </form>
 <p>
-    <a href="reviewlist">목록</a>
+    <a href="/review/list">목록</a>
 </p>
 </body>
 </html>
