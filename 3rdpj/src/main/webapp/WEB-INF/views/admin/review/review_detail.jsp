@@ -23,7 +23,7 @@
     <input type="submit" value="삭제">
 </form>
 <p>
-    <a href="/review/list">목록</a>
+    <a href="/reviewlist">목록</a>
 </p>
 </body>
 </html>

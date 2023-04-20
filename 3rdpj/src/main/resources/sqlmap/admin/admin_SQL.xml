@@ -145,5 +145,12 @@
 	 where review_idx = #{review_idx}
 </delete>
 
+<!-- 신진영 23.04.19 자주묻는질문답변 목록-->
+<select id="qnaList" resultType="com.goott.pj3.board.qna.dto.QnaDTO">
+	SELECT qna_idx, user_id, category, auth, qna_title, qna_content, qna_answer, qna_pw, answer, q_del_yn, create_date,update_date
+	from qna
+</select>
+
+
 
 </mapper>
