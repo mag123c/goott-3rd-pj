@@ -19,6 +19,7 @@ public class NoticeDAO {
     SqlSession sqlSession;
 
     public List<NoticeDTO> noticeList(Criteria cri) {
+
         return sqlSession.selectList("noticeList",cri);
     }
 
