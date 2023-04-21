@@ -4,6 +4,8 @@ package com.goott.pj3.admin.controller;
 
 
 import com.goott.pj3.admin.service.AdminReviewService;
+import com.goott.pj3.common.util.Auth;
+import com.goott.pj3.common.util.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,19 +24,17 @@ public class AdminReviewController {
     @Autowired
     AdminReviewService reviewService;
 
+
     /**
      * 신진영 23.04.18 리뷰 목록, 검색
-     * @param map
+     * @param cri,mv
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("reviewlist")
-    public ModelAndView list(@RequestParam Map<String, Object> map){
-        ModelAndView mv = new ModelAndView();
-        List<Map<String, Object>> reviewList = this.reviewService.list(map);
-        mv.addObject("data", reviewList);
-        if(map.containsKey("keyword")){
-            mv.addObject("keyword", map.get("keyword"));
-        }
+    public ModelAndView list(Criteria cri, ModelAndView mv) {
+        mv.addObject("paging", reviewService.paging(cri));
+        mv.addObject("data", reviewService.list(cri));
         mv.setViewName("/admin/review/review_list");
         return mv;
     }
@@ -44,6 +44,7 @@ public class AdminReviewController {
      * @param map
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("reviewdetail")
     public ModelAndView detail(@RequestParam Map<String, Object> map){
         ModelAndView mv = new ModelAndView();
@@ -60,6 +61,7 @@ public class AdminReviewController {
      * @param map
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("reviewupdate")
     public ModelAndView update(@RequestParam Map<String, Object> map) {
         ModelAndView mv = new ModelAndView();
@@ -74,6 +76,7 @@ public class AdminReviewController {
      * @param map
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping(value = "reviewupdate", method = RequestMethod.POST)
     public ModelAndView updatePost(@RequestParam Map<String, Object> map){
         ModelAndView mv = new ModelAndView();
@@ -92,6 +95,7 @@ public class AdminReviewController {
      * @param map
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("reviewdelete")
     public ModelAndView delete(@RequestParam Map<String, Object> map){
         ModelAndView mv = new ModelAndView();

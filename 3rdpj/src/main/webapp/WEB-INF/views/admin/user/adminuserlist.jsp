@@ -28,6 +28,23 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">회원목록 </div>
                     <div class="panel-body">
+                        <form name="search">
+                            <div>
+                                <select id="selectBox" name="option">
+                                    <option value="">=======</option>
+                                    <option value="user_id">ID</option>
+                                    <option value="auth">유저 종류</option>
+                                    <option value="email">이메일</option>
+                                    <option value="del">탈퇴여부</option>
+                                </select>
+                            </div>
+                            <div class="search_wrap">
+                                <div class="search_area">
+                                    <input type="text" name="keyword" value="${paging.cri.keyword }">
+                                    <button id="search">Search</button>
+                                </div>
+                            </div>
+                        </form>
                         <table class="table table-hover" border="1" width="700px">
                             <thead>
                                 <tr>
@@ -64,7 +81,7 @@
                             <ul class="btn-group pagination">
                                 <c:if test="${paging.prev}">
                                     <li>
-                                        <a href='<c:url value="/admin/userlist?option=${paging.cri.option}&page=${paging.startPage-1}"/>'><i class="fa fa-chevron-left"></i></a>
+                                        <a href='<c:url value="/admin/userlist?option=${paging.cri.option}&keyword=${paging.cri.keyword}&page=${paging.startPage-1}"/>'><i class="fa fa-chevron-left"></i></a>
                                     </li>
                                 </c:if>
                                 <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="pageNum">

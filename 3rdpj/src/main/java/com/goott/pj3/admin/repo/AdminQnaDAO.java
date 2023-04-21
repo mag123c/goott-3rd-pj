@@ -17,27 +17,26 @@ public class AdminQnaDAO {
 
 
     public List<QnaDTO> qnaList(Criteria cri) {
-        return sqlSession.selectList("qnaList", cri);
-
+        return sqlSession.selectList("admin.qnaList", cri);
     }
 
     public int totalCount(Criteria cri) {
-        return sqlSession.selectOne("qnaT_Count", cri);
+        return sqlSession.selectOne("admin.qnaT_Count", cri);
     }
 
     public void qnaInsert(QnaDTO dto) {
-        sqlSession.insert("qnaInsert",dto);
+        sqlSession.insert("admin.qnaInsert",dto);
     }
 
     public QnaDTO qnaDetail(int qna_idx) {
-        return sqlSession.selectOne("qnaDetail", qna_idx);
+        return sqlSession.selectOne("admin.qnaDetail", qna_idx);
     }
 
     public void qnaDelete(int qna_idx) {
-        sqlSession.update("qnaDelete", qna_idx);
+        sqlSession.update("admin.qnaDelete", qna_idx);
     }
 
     public void qnaModify(QnaDTO dto) {
-        sqlSession.update("qnaModify", dto);
+        sqlSession.update("admin.qnaModify", dto);
     }
 }

@@ -24,7 +24,7 @@ public class AdminUserDAO {
      */
     public List<AdminUserDTO> adminUserList(Criteria cri) {
         // TODO Auto-generated method stub
-        return sqlSession.selectList("adminUserList", cri);
+        return sqlSession.selectList("admin.adminUserList", cri);
     }
 
     /**
@@ -33,7 +33,7 @@ public class AdminUserDAO {
      * @return
      */
     public int totalCount(Criteria cri) {
-        return  sqlSession.selectOne("userT_Count",cri);
+        return  sqlSession.selectOne("admin.userT_Count",cri);
     }
 
     /**
@@ -43,7 +43,7 @@ public class AdminUserDAO {
      */
     public AdminUserDTO adminUserDetail(String user_id) {
         // TODO Auto-generated method stub
-        return sqlSession.selectOne("adminUserDetail", user_id);
+        return sqlSession.selectOne("admin.adminUserDetail", user_id);
     }
 
     /**
@@ -52,7 +52,7 @@ public class AdminUserDAO {
      */
     public void adminUserUpdate(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        sqlSession.update("adminUserUpdate", dto);
+        sqlSession.update("admin.adminUserUpdate", dto);
     }
 
     /**
@@ -61,7 +61,7 @@ public class AdminUserDAO {
      */
     public void adminUserDelete(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        sqlSession.delete("adminUserDelete", dto);
+        sqlSession.delete("admin.adminUserDelete", dto);
     }
 
     /**
@@ -70,7 +70,7 @@ public class AdminUserDAO {
      */
     public void adminUserDeleteReturn(AdminUserDTO dto) {
         // TODO Auto-generated method stub
-        sqlSession.update("adminUserDeleteReturn", dto);
+        sqlSession.update("admin.adminUserDeleteReturn", dto);
     }
 
 

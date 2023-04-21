@@ -1,6 +1,9 @@
 package com.goott.pj3.admin.service;
 
 import com.goott.pj3.admin.repo.AdminReviewDAO;
+import com.goott.pj3.board.review.dto.ReviewDTO;
+import com.goott.pj3.common.util.Criteria;
+import com.goott.pj3.common.util.PagingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +18,21 @@ public class AdminReviewServiceImpl implements AdminReviewService{
 
     /**
      * 신진영 23.04.18 리뷰 목록
-     * @param map
+     * @param cri
      * @return
      */
+
     @Override
-    public List<Map<String, Object>> list(Map<String, Object> map) {
-        return this.reviewDAO.list(map);
+    public List<ReviewDTO> list(Criteria cri) {
+        return reviewDAO.list(cri);
+    }
+
+    @Override
+    public PagingDTO paging(Criteria cri) {
+        PagingDTO paging = new PagingDTO();
+        paging.setCri(cri);
+        paging.setTotalCount(reviewDAO.totalCount(cri));
+        return paging;
     }
 
     /**

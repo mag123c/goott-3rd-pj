@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.goott.pj3.common.util.Auth;
 import com.goott.pj3.common.util.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,11 +32,9 @@ public class NoticeController {
      * @param session
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping(value = "noticelist", produces="application/text; charset=UTF-8;")
     public ModelAndView noticeList(ModelAndView mv, Criteria cri, HttpSession session) {
-//		if(session.getAttribute("user_id") == null) { 
-//			return new ModelAndView("redirect:/user/signin"); 
-//		}
         mv.addObject("paging", noticeService.paging(cri));
         mv.addObject("noticelist", noticeService.noticeList(cri));
         mv.setViewName("admin/notice/noticelist");
@@ -46,6 +45,7 @@ public class NoticeController {
      * 신진영 23.04.04 공지사항 작성
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("noticewrite")
     public String noticeWrite() {
         return "admin/notice/noticewrite";
@@ -58,6 +58,7 @@ public class NoticeController {
      * @param session
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("noticeinsert")
     public String noticeInsert(NoticeDTO dto, HttpSession session) {
         String user_id = (String) session.getAttribute("user_id");
@@ -72,6 +73,7 @@ public class NoticeController {
      * @param idx
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("noticedetail")
     public ModelAndView noticeDetail(int idx) {
         ModelAndView mv = new ModelAndView();
@@ -86,6 +88,7 @@ public class NoticeController {
      * @param dto
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("noticeupdate")
     public String noticeUpdate(NoticeDTO dto) {
         noticeService.noticeUpdate(dto);
@@ -98,6 +101,7 @@ public class NoticeController {
      * @param dto
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("noticedelete")
     public String noticeDelete(NoticeDTO dto) {
         noticeService.noticeDelete(dto);
@@ -110,6 +114,7 @@ public class NoticeController {
      * @param dto
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("noticedeletere")
     public String noticeDeleteReturn(NoticeDTO dto) {
         noticeService.noticeDeleteReturn(dto);

@@ -11,10 +11,22 @@
 <body>
 <h1>리뷰 목록</h1>
 <p>
-  <form>
-      <input type="text" placeholder="검색" name="keyword" value="${keyword}">
-      <input type="submit" value="검색">
-  </form>
+<form name="search">
+  <div>
+    <select id="selectBox" name="option">
+      <option value="">=======</option>
+      <option value="user_id">ID</option>
+      <option value="review_content">리뷰 내용</option>
+      <option value="del">탈퇴여부</option>
+    </select>
+  </div>
+  <div class="search_wrap">
+    <div class="search_area">
+      <input type="text" name="keyword" value="${paging.cri.keyword }">
+      <button id="search">Search</button>
+    </div>
+  </div>
+</form>
 </p>
 <table>
   <thead>
@@ -33,23 +45,45 @@
       <td>${row.review_idx}</td>
       <td>
         <a href="/admin/reviewdetail?review_idx=${row.review_idx}">
-          <img src="${row.review_img}" height="200px" width="200px" style="border: 1px solid red";>
+          ${row.review_content}
+<%--          <img src="${row.review_img}" height="200px" width="200px" style="border: 1px solid red";>--%>
         </a>
       </td>
       <td>${row.user_id}</td>
       <td>y/n</td>
       <td>
-        <fmt:parseDate value="${row.create_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="create_date" />
-        <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${create_date}"/>
+        <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${row.create_date}"/>
       </td>
-      <td>
-        <fmt:parseDate value="${row.update_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="update_date" />
-        <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${update_date}"/>
-      </td>
+<%--      <td>--%>
+<%--        <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${row.update_date}"/>--%>
+<%--      </td>--%>
     </tr>
   </c:forEach>
   </tbody>
 </table>
-
+<div class="pagination" style="display: flex; justify-content: center">
+  <form action="form1">
+    <ul class="btn-group pagination">
+      <c:if test="${paging.prev}">
+        <li>
+          <a href='<c:url value="/admin/reviewlist?option=${paging.cri.option}&keyword=${paging.cri.keyword}&page=${paging.startPage-1}"/>'><i class="fa fa-chevron-left"></i></a>
+        </li>
+      </c:if>
+      <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="pageNum">
+        <li>
+          <a href='<c:url value="/admin/reviewlist?option=${paging.cri.option}&keyword=${paging.cri.keyword}&page=${pageNum}"/>'><i class="fa">${pageNum}</i></a>
+        </li>
+      </c:forEach>
+      <c:if test="${paging.next && paging.endPage >0 }">
+        <li>
+          <a href='<c:url value="/admin/reviewlist?option=${paging.cri.option}&keyword=${paging.cri.keyword}&page=${paging.endPage+1}"/>'><i class="fa fa-chevron-right"></i></a>
+        </li>
+      </c:if>
+    </ul>
+    <input type="hidden" name="page" value="${paging.cri.page}">
+    <input type="hidden" name="keyword" value="${paging.cri.keyword}">
+    <input type="hidden" name="option" value="${paging.cri.option}">
+  </form>
+</div>
 </body>
 </html>

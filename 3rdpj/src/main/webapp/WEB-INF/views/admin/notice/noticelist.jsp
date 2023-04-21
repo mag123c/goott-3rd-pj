@@ -39,6 +39,23 @@ $(function(){
         <h1>공지사항 관리</h1>
         <button type="button" class="btn__notice-create">공지사항 작성</button>
       </hgroup>
+        <form name="search">
+            <div>
+                <select id="selectBox" name="option">
+                    <option value="">=======</option>
+                    <option value="user_id">ID</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="title,content">제목+내용</option>
+                </select>
+            </div>
+            <div class="search_wrap">
+                <div class="search_area">
+                    <input type="text" name="keyword" value="${paging.cri.keyword }">
+                    <button id="search">Search</button>
+                </div>
+            </div>
+        </form>
       <hgroup>
         <h1>공지사항</h1>
       </hgroup>

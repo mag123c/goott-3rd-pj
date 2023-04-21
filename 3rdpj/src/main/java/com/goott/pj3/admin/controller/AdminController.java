@@ -5,20 +5,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.goott.pj3.common.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.goott.pj3.admin.dto.AdminDTO;
 import com.goott.pj3.admin.dto.AdminUserDTO;
-import com.goott.pj3.admin.repo.AdminDAO;
 import com.goott.pj3.admin.service.AdminService;
-import com.goott.pj3.user.dto.UserDTO;
+
 
 @Controller
 @RequestMapping("/admin/**")
@@ -81,14 +76,10 @@ public class AdminController {
      * @param session
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("main")
     public String main(HttpSession session) {
-        System.out.println(session.getAttribute("auth"));
-        if (session.getAttribute("auth").equals( "auth_a")) {
             return "admin/main";
-        } else {
-            return "redirect:/admin/login";
-        }
 
     }
 

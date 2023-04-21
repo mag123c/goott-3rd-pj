@@ -3,6 +3,7 @@ package com.goott.pj3.admin.controller;
 import java.util.List;
 
 
+import com.goott.pj3.common.util.Auth;
 import com.goott.pj3.common.util.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class AdminUserController {
      * @param cri
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping(value="userlist",produces="application/text; charset=UTF-8;")
     public ModelAndView adminUserList(ModelAndView mv, Criteria cri) {
         mv.addObject("paging", a_u_Service.paging(cri));
@@ -39,6 +41,7 @@ public class AdminUserController {
      * @param user_id
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("userdetail")
     public ModelAndView adminUserDetail(String user_id) {
         ModelAndView mv = new ModelAndView();
@@ -53,6 +56,7 @@ public class AdminUserController {
      * @param dto
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("userupdate")
     public String adminUserUpdate(AdminUserDTO dto) {
         a_u_Service.adminUserUpdate(dto);
@@ -65,6 +69,7 @@ public class AdminUserController {
      * @param dto
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("userdelete")
     public String adminUserDelete(AdminUserDTO dto) {
         a_u_Service.adminUserDelete(dto);
@@ -77,6 +82,7 @@ public class AdminUserController {
      * @param dto
      * @return
      */
+    @Auth(role = Auth.Role.ADMIN)
     @RequestMapping("userdeletere")
     public String adminUserDeleteReturn(AdminUserDTO dto) {
         a_u_Service.adminUserDeleteReturn(dto);

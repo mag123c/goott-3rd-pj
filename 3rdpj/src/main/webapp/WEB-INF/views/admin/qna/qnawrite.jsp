@@ -14,16 +14,16 @@
 </head>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $("#btnSave").click(function(){
-    let category = document.form1.category.value;
-    if(category!="N"){
-      alert("공지사항 카테고리는 N입니다")
-      document.form1.category.focus();
-      return;
-    }
-    document.form1.submit();
-
-  });
+  // $("#btnSave").click(function(){
+  //   let category = document.form1.category.value;
+  //   if(category!="N"){
+  //     alert("공지사항 카테고리는 N입니다")
+  //     document.form1.category.focus();
+  //     return;
+  //   }
+  //   document.form1.submit();
+  //
+  // });
 </script>
 
 <body>
@@ -37,7 +37,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">공지사항 작성 </div>
         <div class="panel-body">
-          <form id="form1" name="form1" method="post" action="/admin/noticeinsert">
+          <form id="form1" name="form1" method="post" action="/admin/qna/qnawrite">
             <div>
               <input name="user_id" id="user_id" value="admin">
             </div>

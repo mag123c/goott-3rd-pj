@@ -14,8 +14,7 @@
 	<div>
 		<a href="userlist">회원관리</a>
 		<a href="logout">로그아웃</a>
-		<a href="/qna/main">질문게시판</a>
-		<a href="/review/list">리뷰관리</a>
+		<a href="qnalist">질문게시판</a>
 		<a href="reviewlist">리뷰관리</a>
 	</div>
 <%-- 	</c:if>--%>
